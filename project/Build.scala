@@ -7,15 +7,7 @@ object ScalaBuffBuild extends Build {
     base = file("."),
     settings = Defaults.defaultSettings ++ Seq(
       credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
-      publishTo <<= (version) { version: String =>
-         val scalasbt = "http://repo.scala-sbt.org/scalasbt/"
-         val (name, url) = if (version.contains("-SNAPSHOT"))
-           ("sbt-plugin-snapshots", scalasbt+"sbt-plugin-snapshots")
-         else
-           ("sbt-plugin-releases", scalasbt+"sbt-plugin-releases")
-         Some(Resolver.url(name, new URL(url))(Resolver.ivyStylePatterns))
-      },
-      publishMavenStyle := false
+      publishTo := Some("releases" at "http://dev.minutekey.com:9090/nexus/content/repositories/releases")
     )
   )
 }
